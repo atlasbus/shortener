@@ -29,6 +29,10 @@ export class FrontendController {
   ) {}
 
   @Redirect('https://atlasbus.ru')
+  @Get()
+  async default() {}
+
+  @Redirect('https://atlasbus.ru')
   @Get('/:slug')
   async get(
     @Param('slug') slug: string,
