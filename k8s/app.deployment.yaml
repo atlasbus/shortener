@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shortener
+  namespace: shortener
+  labels:
+    app: shortener
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shortener
+  template:
+    metadata:
+      labels:
+        app: shortener
+    spec:
+      containers:
+        - name: shortener
+          image: gcr.io/atlas-k8s/shortener:latest
+          envFrom:
+            - configMapRef:
+                name: dotenv
+          ports:
+            - containerPort: 3000
