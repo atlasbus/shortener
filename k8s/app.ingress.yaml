@@ -15,7 +15,15 @@ spec:
               serviceName: shortener
               servicePort: 3000
             path: /
+    - host: k8s.atls.cc
+      http:
+        paths:
+          - backend:
+              serviceName: shortener
+              servicePort: 3000
+            path: /
   tls:
     - hosts:
         - atls.cc
+        - k8s.atls.cc
       secretName: shortener-tls
