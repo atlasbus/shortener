@@ -59,7 +59,10 @@ export class HistoryService {
     const history = await this.repo
       .createQueryBuilder('history')
       .select('COUNT(*)', 'clicks')
-      .addSelect('DATE(history."createdAt")', 'day')
+      .addSelect(
+        `DATE_TRUNC('${granularity}', DATE(history."createdAt"))`,
+        'day',
+      )
       .groupBy('2')
       .where({
         linkId: link.id,
