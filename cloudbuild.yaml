@@ -22,6 +22,7 @@ steps:
   - name: 'gcr.io/cloud-builders/gke-deploy'
     args:
       [
+        'run',
         '--version',
         '$SHORT_SHA',
         '--project',
