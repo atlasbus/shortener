@@ -2,7 +2,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/atlas-k8s/shortener:$SHORT_SHA', '.']
   - name: 'gcr.io/cloud-builders/docker'
-    arg:
+    args:
       - 'build'
       - 'tag'
       - 'gcr.io/atlas-k8s/shortener:$SHORT_SHA'
