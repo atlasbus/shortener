@@ -39,10 +39,12 @@ export class FrontendController {
     if (this.config.get('common').environment !== EEnvironment.Production) {
       host = 'atls.cc';
     }
+    if (headers['x-real-host']) {
+      host = headers['x-real-host'];
+    }
     try {
       const link = await this.linkService.getLink(host, slug);
       const originalUrl = `https://${host}${req.url}`;
-      this.logger.log({ originalUrl }, 'Trackong link');
       await this.historyService.trackHistory(
         link,
         originalUrl,
