@@ -15,6 +15,7 @@ spec:
       labels:
         app: shortener
     spec:
+      serviceAccountName: shortener
       containers:
         - name: shortener
           image: gcr.io/atlas-k8s/shortener:latest
