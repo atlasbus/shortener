@@ -5,14 +5,17 @@ import {
   Get,
   Param,
   Post,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { ApiGuard } from 'src/guards';
 import { LinkEntity } from '../link/entities';
 import { ApiService } from './api.service';
 import { CreateRequestDto } from './dto';
 import { GetStatParamDto } from './dto/get-stat-param.dto';
 import { StatResponseDto } from './dto/stat-response.dto';
 
+@UseGuards(ApiGuard)
 @Controller('api')
 export class ApiController {
   constructor(private readonly apiService: ApiService) {}
