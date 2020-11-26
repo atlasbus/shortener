@@ -1,9 +1,16 @@
 steps:
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/atlas-k8s/shortener:$SHORT_SHA', '.']
+  # - name: 'gcr.io/cloud-builders/docker'
+  #   args: ['pull', 'gcr.io/atlas-k8s/shortener:latest']
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'build'
+      # - '--cache-from'
+      # - 'gcr.io/atlas-k8s/shortener:latest'
+      - '-t'
+      - 'gcr.io/atlas-k8s/shortener:$SHORT_SHA'
+      - '.'
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
       - 'tag'
       - 'gcr.io/atlas-k8s/shortener:$SHORT_SHA'
       - 'gcr.io/atlas-k8s/shortener:latest'
