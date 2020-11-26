@@ -19,7 +19,19 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/atlas-k8s/shortener:latest']
 
-  # - name: 'gcr.io/cloud-builders/gke-deploy'
-  #   args:
-  #     - --version
-  #     - $SHORT_SHA
+  - name: 'gcr.io/cloud-builders/gke-deploy'
+    args:
+      [
+        '--version',
+        '$SHORT_SHA',
+        '--project',
+        'atlas-k8s',
+        '--cluster',
+        'atlas-k8s-n',
+        '--location',
+        'europe-north1-b',
+        '--image',
+        'gcr.io/atlas-k8s/shortener:$SHORT_SHA',
+        '--filename',
+        './k8s',
+      ]
