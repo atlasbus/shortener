@@ -4,6 +4,7 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  Index,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -11,6 +12,7 @@ import {
 import { ILink } from '../interfaces';
 
 @Entity({ name: 'links' })
+@Index(['slug', 'domain'], { unique: true })
 export class LinkEntity implements ILink {
   @PrimaryGeneratedColumn()
   id: number;
