@@ -3,7 +3,9 @@ import {
   IsNotEmpty,
   IsOptional,
   IsUrl,
+  Max,
   MaxLength,
+  Min,
   MinLength,
 } from 'class-validator';
 import { ICreateRequest } from '../interfaces';
@@ -22,4 +24,9 @@ export class CreateRequestDto implements ICreateRequest {
   @MaxLength(100)
   @IsOptional()
   slug?: string;
+
+  @Min(3)
+  @Max(100)
+  @IsOptional()
+  length?: number;
 }
