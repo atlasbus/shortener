@@ -17,7 +17,7 @@ export class HistoryEntity implements IHistory {
   @Column({ type: 'text' })
   userAgent: string;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'jsonb' })
   query: Record<string, string>;
 
   @JoinColumn({ name: 'linkId' })
