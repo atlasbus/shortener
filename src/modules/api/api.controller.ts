@@ -1,7 +1,17 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  ClassSerializerInterceptor,
+  Controller,
+  Get,
+  Param,
+  Post,
+  UseInterceptors,
+} from '@nestjs/common';
 import { LinkEntity } from '../link/entities';
 import { ApiService } from './api.service';
 import { CreateRequestDto } from './dto';
+import { GetStatParamDto } from './dto/get-stat-param.dto';
+import { StatResponseDto } from './dto/stat-response.dto';
 
 @Controller('api')
 export class ApiController {
@@ -17,5 +27,11 @@ export class ApiController {
     @Param('slug') slug: string,
   ): Promise<LinkEntity> {
     return await this.apiService.getLink(domain, slug);
+  }
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Get('/stat/:domain/:slug/:granularity')
+  async getStat(@Param() params: GetStatParamDto): Promise<StatResponseDto> {
+    return await this.apiService.getHistory(params);
   }
 }

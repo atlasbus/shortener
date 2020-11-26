@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { ILink } from '../link/interfaces';
 import { LinkService } from '../link/link.service';
 import { HistoryEntity } from './entities';
+import { EGranularity } from '../api/enum';
 
 @Injectable()
 export class HistoryService {
@@ -48,7 +49,7 @@ export class HistoryService {
 
   async getHistory(
     link: ILink,
-    slug: string,
+    granularity: EGranularity,
   ): Promise<
     Array<{
       day: Date;
@@ -58,10 +59,15 @@ export class HistoryService {
     const history = await this.repo
       .createQueryBuilder('history')
       .select('COUNT(*)', 'clicks')
+      .addSelect('DATE(history."createdAt")', 'day')
+      .groupBy('2')
       .where({
         linkId: link.id,
       })
       .getRawMany();
-    return history as any;
+    return history.map((h) => ({
+      ...h,
+      clicks: parseInt(h.clicks),
+    }));
   }
 }
