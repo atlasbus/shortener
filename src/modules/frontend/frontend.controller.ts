@@ -49,13 +49,19 @@ export class FrontendController {
     try {
       const link = await this.linkService.getLink(host, slug);
       const originalUrl = `https://${host}${req.url}`;
+
+      const linkUrl =
+        link.url.startsWith('http://') || link.url.startsWith('https://')
+          ? link.url
+          : `http://${link.url}`;
+
       await this.historyService.trackHistory(
         link,
         originalUrl,
         headers['user-agent'],
       );
       return {
-        url: link.url,
+        url: linkUrl,
         statusCode: 302,
       };
     } catch (e) {
