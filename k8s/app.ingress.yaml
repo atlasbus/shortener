@@ -15,6 +15,13 @@ spec:
               serviceName: shortener
               servicePort: 3000
             path: /
+    - host: avtob.us
+      http:
+        paths:
+          - backend:
+              serviceName: shortener
+              servicePort: 3000
+            path: /
     - host: k8s.atls.cc
       http:
         paths:
